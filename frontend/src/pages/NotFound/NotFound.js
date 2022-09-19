@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import img from "../../assets/images/404.png";
 const NotFound = () => {
   return (
-    <main className="full-page">
+    <main className="not-found full-page">
       <div>
         <img src={img} alt="not found" />
         <h3>Ohh! page not found</h3>

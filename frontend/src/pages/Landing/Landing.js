@@ -2,6 +2,7 @@ import React from "react";
 import "./Landing.css";
 import { Logo } from "../../components";
 import main from "../../assets/images/main.png";
+import { Link } from "react-router-dom";
 const Landing = () => {
   return (
     <main>
@@ -16,9 +17,9 @@ const Landing = () => {
           </h1>
           <p>Test your english level by taking quizes .</p>
           {/* button to Link */}
-          <button to="/register" className="btn btn-hero">
+          <Link to="/register" className="btn btn-hero">
             Login/Register
-          </button>
+          </Link>
         </div>
         {/* End Landing info */}
         <img src={main} alt="job hunt" className="img main-img" />
