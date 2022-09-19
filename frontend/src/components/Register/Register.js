@@ -1,18 +1,24 @@
 import { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { Logo, FormRow } from "../../components";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
+import { useAppcontext } from "../../context/AppContext";
 const initialState = {
   name: "",
   email: "",
   password: "",
+  loggedUser: null,
   isMember: true //Login or register
 };
 const Register = () => {
+  const { doToast, isLoading, toggleLoading, setUser, user } = useAppcontext();
   const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
-  const isLoading = false;
+
+  useEffect(() => {
+    if (user) navigate("/");
+  }, [user, navigate]);
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
@@ -21,27 +27,15 @@ const Register = () => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
-  const notify = () => toast("Wow so easy !");
   const onSubmit = e => {
     e.preventDefault();
     const { name, email, password, isMember } = values;
     if (!email || !password || (!isMember && !name)) {
       //toast alert
-      toast("You must provide all values", {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
-      });
+      doToast({ message: "you must provide all values", type: "warn" });
       return;
     }
-
-    toast.success("Success Notification !", {
-      position: toast.POSITION.TOP_CENTER
-    });
+    setUser({ name, password });
 
     console.log("dd", values);
   };
