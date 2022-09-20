@@ -1,12 +1,47 @@
 import express from "express";
 const app = express();
 
+import dotenv from "dotenv";
+dotenv.config();
+import connectDB from "./DB/connect.js";
+
+//import routes
+import authRouter from "./router/authRouter.js";
+
+import RouteNotFoundMiddleware from "./middleware/route-not-found.js";
+import errorHandlerMiddleware from "./middleware/error-handler.js";
 const port = process.env.PORT || 5000;
 
+app.use(function(req, res, next) {
+  //not arrow function
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  next();
+});
+app.use(express.json());
+
 app.get("/", (req, res) => {
-  res.send({ msg: "hello express" });
+  res.send({ msg: "hello from server" });
 });
 
-app.listen(port, () => {
-  console.log(`server running on port ${port}`);
-});
+// set routes middleware
+app.use("/api/auth", authRouter);
+
+// if no route matches
+app.use(RouteNotFoundMiddleware);
+// if route matches but there is ERROR
+app.use(errorHandlerMiddleware);
+
+// try to connect to database and run server
+const startServer = async () => {
+  try {
+    await connectDB(process.env.MONGO_URL);
+    app.listen(port, () => {
+      console.log("server up and running " + port);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+startServer();

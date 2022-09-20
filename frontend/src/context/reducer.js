@@ -1,21 +1,37 @@
 import {
   TOGGLE_LOADING,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_ERROR
+  TOGGLE_SIDEBAR,
+  SETUP_USER_SUCCESS,
+  LOGOUT_USER,
+  UPDATE_USER_SUCCESS
 } from "./actions";
 
 const reducer = (state, { type, payload }) => {
   if (type === TOGGLE_LOADING) {
-    return { ...state, isLoading: paylaod.value };
+    return { ...state, isLoading: payload.value };
+  }
+  if (type === TOGGLE_SIDEBAR) {
+    return {
+      ...state,
+      isSidebarOpened: !state.showSidebar
+    };
   }
 
-  if (type === REGISTER_USER_SUCCESS) {
+  // works fine with Login || Register
+  if (type === SETUP_USER_SUCCESS) {
     const { name, password } = payload;
-    return { ...state, user: { name, password } };
+    return { ...state, user: { name, password }, isLoading: false };
+  }
+  if (type === UPDATE_USER_SUCCESS) {
+    const { name, password } = payload;
+    return { ...state, user: { name, password }, isLoading: false };
   }
 
+  if (type === LOGOUT_USER) {
+    return { ...state, user: null, token: null };
+  }
   // if no types matches
-  throw new Error(`no such action : ${action.type}`);
+  throw new Error(`no such action : ${type}`);
 };
 
 export default reducer;

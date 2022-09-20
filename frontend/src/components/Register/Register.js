@@ -31,13 +31,23 @@ const Register = () => {
     e.preventDefault();
     const { name, email, password, isMember } = values;
     if (!email || !password || (!isMember && !name)) {
-      //toast alert
       doToast({ message: "you must provide all values", type: "warn" });
       return;
     }
-    setUser({ name, password });
-
-    console.log("dd", values);
+    const newUser = { name, email, password };
+    if (isMember) {
+      setUser({
+        newUser,
+        endPoint: "login",
+        alertTextOnSuccess: "Login Successful! Redirecting..."
+      });
+    } else {
+      setUser({
+        newUser,
+        endPoint: "register",
+        alertTextOnSuccess: "User Created! Redirecting..."
+      });
+    }
   };
   return (
     <form className="form registerForm" onSubmit={onSubmit}>
