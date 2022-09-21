@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
       //npm i validator
       //import validator from 'validator'
       validator: validator.isEmail,
-      message: "invalid email"
+      message: "invalid email !"
     }
   },
   password: {

@@ -1,6 +1,9 @@
 import express from "express";
 const app = express();
 
+//https://www.npmjs.com/package/express-async-errors
+import "express-async-errors";
+
 import dotenv from "dotenv";
 dotenv.config();
 import connectDB from "./DB/connect.js";
