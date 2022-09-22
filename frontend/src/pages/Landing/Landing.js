@@ -5,7 +5,7 @@ import main from "../../assets/images/main.png";
 import { Link } from "react-router-dom";
 const Landing = () => {
   return (
-    <main>
+    <main className="appLanding">
       <nav>
         <Logo />
       </nav>
@@ -18,7 +18,7 @@ const Landing = () => {
           <p>Test your english level by taking quizes .</p>
           {/* button to Link */}
           <Link to="/register" className="btn btn-hero">
-            Login/Register
+            Get started - it's free
           </Link>
         </div>
         {/* End Landing info */}

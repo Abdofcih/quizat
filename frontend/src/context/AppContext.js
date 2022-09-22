@@ -70,12 +70,12 @@ const AppContextProvider = ({ children }) => {
   };
   /**** End data presistanc in localStorage     */
 
-  // Tggle loading either to true or false
+  // Toggle loading either to true or false
   const toggleLoading = (value = false) => {
     dispatch({ type: TOGGLE_LOADING, payload: { value } });
   };
 
-  // display taost on web view
+  // display toast on web view
   const doToast = ({ message, type }) => {
     const toastOption = {
       position: "bottom-right",
@@ -97,10 +97,10 @@ const AppContextProvider = ({ children }) => {
   };
 
   // setup user by login or register
-  const setUser = async ({ newUser, endpoint, alertTextOnSuccess }) => {
+  const setUser = async ({ newUser, endPoint, alertTextOnSuccess }) => {
     dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
     try {
-      const response = await axios.post(`${baseUrl}/auth/${endpoint}`, newUser);
+      const response = await axios.post(`${baseUrl}/auth/${endPoint}`, newUser);
       console.log(response);
       const { user, token } = response.data;
       doToast({ message: alertTextOnSuccess, type: "success" });
@@ -116,7 +116,7 @@ const AppContextProvider = ({ children }) => {
       doToast({ message: error.response.data.msg, type: "error" });
     }
   };
-
+  const updateUser = () => {};
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER });
     removeUserFromLocalStorage();
@@ -137,8 +137,8 @@ const AppContextProvider = ({ children }) => {
     </appContext.Provider>
   );
 };
-const useAppcontext = () => {
+const useAppContext = () => {
   return useContext(appContext);
 };
 
-export { AppContextProvider, useAppcontext };
+export { AppContextProvider, useAppContext };

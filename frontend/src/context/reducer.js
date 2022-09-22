@@ -13,14 +13,14 @@ const reducer = (state, { type, payload }) => {
   if (type === TOGGLE_SIDEBAR) {
     return {
       ...state,
-      isSidebarOpened: !state.showSidebar
+      isSidebarOpened: !state.isSidebarOpened
     };
   }
 
   // works fine with Login || Register
   if (type === SETUP_USER_SUCCESS) {
-    const { name, password } = payload;
-    return { ...state, user: { name, password }, isLoading: false };
+    const { user, token } = payload;
+    return { ...state, user, token, isLoading: false };
   }
   if (type === UPDATE_USER_SUCCESS) {
     const { name, password } = payload;

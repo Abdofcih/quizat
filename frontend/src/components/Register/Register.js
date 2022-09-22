@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { Logo, FormRow } from "../../components";
 import "./Register.css";
-import { useNavigate } from "react-router-dom";
-import { useAppcontext } from "../../context/AppContext";
+
+import { useAppContext } from "../../context/AppContext";
 const initialState = {
   name: "",
   email: "",
@@ -12,13 +12,9 @@ const initialState = {
   isMember: true //Login or register
 };
 const Register = () => {
-  const { doToast, isLoading, toggleLoading, setUser, user } = useAppcontext();
-  const navigate = useNavigate();
-  const [values, setValues] = useState(initialState);
+  const { doToast, isLoading, setUser, user } = useAppContext();
 
-  useEffect(() => {
-    if (user) navigate("/");
-  }, [user, navigate]);
+  const [values, setValues] = useState(initialState);
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
