@@ -5,6 +5,7 @@ import {
   NotFound,
   SharedLayout,
   Stats,
+  Profile,
   Protected
 } from "./pages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -22,6 +23,7 @@ function App() {
           }
         >
           <Route index element={<Stats />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
         <Route path="/welcome" element={<Landing />} />
         <Route path="/register" element={<Register />} />

@@ -116,7 +116,27 @@ const AppContextProvider = ({ children }) => {
       doToast({ message: error.response.data.msg, type: "error" });
     }
   };
-  const updateUser = () => {};
+  const updateUser = async currentUser => {
+    dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
+    try {
+      // axios put the server response data into  data  =>response.data
+      // later change post to patch
+      const { data } = await authFetch.post(`/auth/update`, currentUser);
+      const { user, token } = data;
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: { user, token }
+      });
+      doToast({ message: "User updated", type: "success" });
+      addUserToLocalStorage({ user, token });
+    } catch (error) {
+      //error.response || error.response.data
+      console.log("update user Error");
+      console.log(error);
+      dispatch({ type: TOGGLE_LOADING, payload: { value: false } });
+      doToast({ message: error.response.data.msg, type: "error" });
+    }
+  };
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER });
     removeUserFromLocalStorage();

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { FormRow } from "../../../components";
-import { useAppcontext } from "../../../context/AppContext";
-import Wrapper from "../../assets/wrappers/DashboardFormPage";
+import { useAppContext } from "../../../context/AppContext";
 import "./Profile.css";
+
 const Profile = () => {
-  const { user, updateUser, doToast, isLoading, updateUser } = useAppcontext();
+  const { user, doToast, isLoading, updateUser } = useAppContext();
   const [name, setName] = useState(user?.name);
   const [lastName, setLastName] = useState(user?.lastName);
   const [email, setEmail] = useState(user?.email);
@@ -12,13 +12,11 @@ const Profile = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    //remove while testing
-    /*  if (!name || !lastName || !email || !location) {
-      return displayAlert({
-        message: "please provide all values",
-        alertType: "danger"
-      });
-    } */
+    //remove comment on production
+    /*
+    if (!name || !lastName || !email || !location) {
+      return doToast({ message: "Please provide all values", type: "error" });
+    }*/
     updateUser({ name, email, lastName, location });
   };
 
@@ -26,7 +24,6 @@ const Profile = () => {
     <section className="updateProfile">
       <form className="form" onSubmit={handleSubmit}>
         <h3>Profile</h3>
-        {showAlert && <Alert />}
         <div className="form-center">
           <FormRow
             inputId="name"
@@ -68,3 +65,4 @@ const Profile = () => {
     </section>
   );
 };
+export default Profile;

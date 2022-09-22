@@ -52,6 +52,18 @@ export const login = async (req, res) => {
   res.status(StatusCodes.OK).send({ user, token });
 };
 
-export const updateUser = (req, res) => {
-  res.send({ msg: "update route works" });
+export const updateUser = async (req, res) => {
+  const { name, email, lastName, location } = req.body;
+  console.log(req.body);
+
+  if (!name || !email || !lastName || !location) {
+    throw new BadRequestError("please provide all values");
+  }
+  const user = await User.findOne({ _id: req.user.id });
+  user.name = name;
+  user.email = email;
+  user.lastName = lastName;
+  user.location = location;
+  await user.save();
+  res.send({ user, token: req.user.token, location });
 };

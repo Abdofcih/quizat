@@ -23,8 +23,8 @@ const reducer = (state, { type, payload }) => {
     return { ...state, user, token, isLoading: false };
   }
   if (type === UPDATE_USER_SUCCESS) {
-    const { name, password } = payload;
-    return { ...state, user: { name, password }, isLoading: false };
+    const { user, token } = payload;
+    return { ...state, user, token, isLoading: false };
   }
 
   if (type === LOGOUT_USER) {
