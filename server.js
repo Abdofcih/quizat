@@ -10,6 +10,7 @@ import connectDB from "./DB/connect.js";
 
 //import routes
 import authRouter from "./router/authRouter.js";
+import quizRouter from "./router/quizRouter.js";
 
 import RouteNotFoundMiddleware from "./middleware/route-not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
@@ -30,7 +31,7 @@ app.get("/", (req, res) => {
 
 // set routes middleware
 app.use("/api/auth", authRouter);
-
+app.use("/api/quizes", quizRouter);
 // if no route matches
 app.use(RouteNotFoundMiddleware);
 // if route matches but there is ERROR

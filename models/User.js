@@ -37,8 +37,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     minLength: 6,
     default: "cairo , EG"
-  },
-  quizes: [{ type: mongoose.Types.ObjectId, ref: "quiz" }]
+  }
 });
 
 // use function(){} instead of ()=>{}

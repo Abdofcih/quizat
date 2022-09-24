@@ -9,15 +9,14 @@ const QuizSchema = mongoose.Schema(
     },
     description: {
       type: String,
-      required: [true, "company is required"],
       maxLength: 250
     },
+    bgUrl: String,
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "user",
       required: [true, "Owner must be ecxist"]
-    },
-    students: [{ type: mongoose.Types.ObjectId, ref: "user" }]
+    }
   },
   { timestamps: true }
 );
