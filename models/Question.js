@@ -22,8 +22,12 @@ const QuestionSchema = mongoose.Schema({
     ref: "quiz",
     required: [true, "quiz must be excist"]
   },
-  wrongAnswers: [{ type: String }],
-  correctAnswer: String
+  wrongAnswers: [{ type: String }], //array of string
+  correctAnswer: {
+    type: String,
+    required: [true, "Question correct answer is required"],
+    maxLength: 300
+  }
 });
 
 export default mongoose.model("question", QuestionSchema);

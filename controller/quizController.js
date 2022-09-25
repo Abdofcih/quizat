@@ -73,7 +73,7 @@ export const deleteQuiz = async (req, res) => {
   checkPermissions({ requestUser: req.user, resourceUserId: quiz.createdBy });
   await quiz.remove();
 
-  res.json({ msg: "Success! delete quiz ", id: quizId });
+  res.json({ msg: "Success! delete quiz ", id: quizId, title: quiz.title });
 };
 export const updateQuiz = async (req, res) => {
   const { id: quizId } = req.params;

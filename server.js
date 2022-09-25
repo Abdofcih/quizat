@@ -7,10 +7,12 @@ import "express-async-errors";
 import dotenv from "dotenv";
 dotenv.config();
 import connectDB from "./DB/connect.js";
-
+//middleware
+import AuthenticateUser from "./middleware/auth.js";
 //import routes
 import authRouter from "./router/authRouter.js";
 import quizRouter from "./router/quizRouter.js";
+import questionRouter from "./router/questionRouter.js";
 
 import RouteNotFoundMiddleware from "./middleware/route-not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
@@ -31,7 +33,8 @@ app.get("/", (req, res) => {
 
 // set routes middleware
 app.use("/api/auth", authRouter);
-app.use("/api/quizzes", quizRouter);
+app.use("/api/quizzes", AuthenticateUser, quizRouter);
+app.use("/api/questions", AuthenticateUser, questionRouter);
 // if no route matches
 app.use(RouteNotFoundMiddleware);
 // if route matches but there is ERROR

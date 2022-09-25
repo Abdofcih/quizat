@@ -12,13 +12,13 @@ const router = express.Router();
 
 router
   .route("/")
-  .post(AuthenticateUser, createQuiz)
-  .get(AuthenticateUser, getAllQuizzes);
+  .post(createQuiz)
+  .get(getAllQuizzes);
 router
   .route("/:id")
-  .delete(AuthenticateUser, deleteQuiz) //post to patch -********
-  .patch(AuthenticateUser, updateQuiz);
+  .delete(deleteQuiz) //post to patch -********
+  .patch(updateQuiz);
 /* router.delete("/:id", AuthenticateUser, deleteQuiz); */
-router.route("/stats").get(AuthenticateUser, getStats);
+router.route("/stats").get(getStats);
 
 export default router;
