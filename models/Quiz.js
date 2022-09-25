@@ -7,6 +7,11 @@ const QuizSchema = mongoose.Schema(
       required: [true, "title is required"],
       maxLength: 100
     },
+    subject: {
+      type: String,
+      enum: ["english", "programing", "math", "marketing"],
+      default: "english"
+    },
     description: {
       type: String,
       maxLength: 250
@@ -15,7 +20,7 @@ const QuizSchema = mongoose.Schema(
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "user",
-      required: [true, "Owner must be ecxist"]
+      required: [true, "Owner must exist"]
     }
   },
   { timestamps: true }

@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 
 // set routes middleware
 app.use("/api/auth", authRouter);
-app.use("/api/quizes", quizRouter);
+app.use("/api/quizzes", quizRouter);
 // if no route matches
 app.use(RouteNotFoundMiddleware);
 // if route matches but there is ERROR

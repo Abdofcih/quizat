@@ -2,7 +2,7 @@ import express from "express";
 import AuthenticateUser from "../middleware/auth.js";
 import {
   createQuiz,
-  getAllQuizes,
+  getAllQuizzes,
   deleteQuiz,
   updateQuiz,
   getStats
@@ -13,7 +13,7 @@ const router = express.Router();
 router
   .route("/")
   .post(AuthenticateUser, createQuiz)
-  .get(AuthenticateUser, getAllQuizes);
+  .get(AuthenticateUser, getAllQuizzes);
 router
   .route("/:id")
   .delete(AuthenticateUser, deleteQuiz) //post to patch -********
