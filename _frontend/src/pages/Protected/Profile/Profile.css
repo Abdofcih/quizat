@@ -1,14 +1,13 @@
-.updateProfile {
+.editSubmitFormSection {
   border-radius: var(--borderRadius);
-  width: 100%;
   background: var(--white);
   padding: 3rem 2rem 4rem;
   box-shadow: var(--shadow-2);
 }
-.updateProfile h3 {
+.editSubmitFormSection h3 {
   margin-top: 0;
 }
-.updateProfile .form {
+.editSubmitFormSection .form {
   margin: 0;
   border-radius: 0;
   box-shadow: none;
@@ -16,49 +15,49 @@
   max-width: 100%;
   width: 100%;
 }
-.updateProfile .form-row {
+.editSubmitFormSection .form-row {
   margin-bottom: 0;
 }
-.updateProfile .form-center {
+.editSubmitFormSection .form-center {
   display: grid;
   row-gap: 0.5rem;
 }
-.updateProfile .form-center button {
+.editSubmitFormSection .form-center button {
   align-self: end;
   height: 35px;
   margin-top: 1rem;
 }
-.updateProfile .btn-container {
+.editSubmitFormSection .btn-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 1rem;
   align-self: flex-end;
   margin-top: 0.5rem;
 }
-.updateProfile .btn-container button {
+.editSubmitFormSection .btn-container button {
   height: 35px;
 }
-.updateProfile .clear-btn {
+.editSubmitFormSection .clear-btn {
   background: var(--grey-500);
 }
-.updateProfile .clear-btn:hover {
+.editSubmitFormSection .clear-btn:hover {
   background: var(--black);
 }
 @media (min-width: 992px) {
-  .updateProfile .form-center {
+  .editSubmitFormSection .form-center {
     grid-template-columns: 1fr 1fr;
     align-items: center;
     column-gap: 1rem;
   }
-  .updateProfile .btn-container {
+  .editSubmitFormSection .btn-container {
     margin-top: 0;
   }
 }
 @media (min-width: 1120px) {
-  .updateProfile .form-center {
+  .editSubmitFormSection .form-center {
     grid-template-columns: 1fr 1fr 1fr;
   }
-  .updateProfile .form-center button {
+  .editSubmitFormSection .form-center button {
     margin-top: 0;
   }
 }

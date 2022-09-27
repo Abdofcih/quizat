@@ -6,9 +6,12 @@ import axios from "axios";
 import {
   TOGGLE_LOADING,
   TOGGLE_SIDEBAR,
+  CLEAR_FORM,
+  HANDLE_FORM_CHANGE,
   SETUP_USER_SUCCESS,
   LOGOUT_USER,
-  UPDATE_USER_SUCCESS
+  UPDATE_USER_SUCCESS,
+  CREATE_QUIZ_SUCCESS
 } from "./actions";
 
 // first of all get what in local storage
@@ -19,7 +22,16 @@ const initialValues = {
   user: user ? JSON.parse(user) : null,
   token: token,
   isLoading: false,
-  isSidebarOpened: false
+  isSidebarOpened: false,
+  //state of current quiz adding or editing
+  quizTitle: "",
+  quizSubject: "english",
+  quizSubjectTypes: ["english", "programing", "math", "marketing"],
+  quizDescription: "",
+  quizBgUrl: "",
+  //check form mode whether is editing or adding
+  isEditing: false,
+  idIfItIsEditing: ""
 };
 const appContext = React.createContext();
 
@@ -92,10 +104,21 @@ const AppContextProvider = ({ children }) => {
     else if (type === "info") toast.info(message, toastOption);
     else toast(message, toastOption);
   };
+  // State is isolated up to be accessed any where in the app
+  // handle form to change this state is also isolated
+  // in context not in single component
+  const handleFormChange = ({ name, value }) => {
+    dispatch({
+      type: HANDLE_FORM_CHANGE,
+      payload: { name, value }
+    });
+  };
   const toggleSidebar = () => {
     dispatch({ type: TOGGLE_SIDEBAR });
   };
-
+  const clearForm = () => {
+    dispatch({ type: CLEAR_FORM });
+  };
   // setup user by login or register
   const setUser = async ({ newUser, endPoint, alertTextOnSuccess }) => {
     dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
@@ -137,19 +160,62 @@ const AppContextProvider = ({ children }) => {
       doToast({ message: error.response.data.msg, type: "error" });
     }
   };
+  /* Start create quiz  */
+  const createQuiz = async () => {
+    console.log("Creating quiz");
+    dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
+    try {
+      // var:alias to be clear and I used these names in backend
+      const {
+        quizTitle: title,
+        quizSubject: subject,
+        quizDescription: description,
+        quizBgUrl: bgUrl
+      } = state;
+      const newQuiz = { title, subject, description, bgUrl };
+      const { data } = await authFetch.post(`/quizzes`, newQuiz);
+
+      doToast({ message: `Job ${data.title} created `, type: "success" });
+      dispatch({
+        type: CREATE_QUIZ_SUCCESS
+      });
+      dispatch({ type: CLEAR_FORM });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: TOGGLE_LOADING, payload: { value: false } });
+      doToast({ message: error.response.data.msg, type: "error" });
+      /* 
+    if (error.response.status === 401) {
+      custom error for this case
+       doToast({ message: error.response.data.msg, type: "error" });
+    } */
+    }
+  };
+  /* End create quiz  */
+  /* Start Edit quiz */
+  const editQuiz = async () => {
+    console.log("Editing");
+  };
+  /* End edit quiz */
+  /* Start logout user*/
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER });
     removeUserFromLocalStorage();
   };
+  /* End logout user */
   return (
     <appContext.Provider
       value={{
         ...state,
         toggleSidebar,
+        handleFormChange,
+        clearForm,
         doToast,
         updateUser,
         setUser,
         toggleLoading,
+        createQuiz,
+        editQuiz,
         logoutUser
       }}
     >

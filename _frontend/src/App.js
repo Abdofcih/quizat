@@ -6,6 +6,7 @@ import {
   SharedLayout,
   Stats,
   Profile,
+  AddQuiz,
   Protected
 } from "./pages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -23,6 +24,7 @@ function App() {
           }
         >
           <Route index element={<Stats />} />
+          <Route path="/add-quiz" element={<AddQuiz />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
         <Route path="/welcome" element={<Landing />} />

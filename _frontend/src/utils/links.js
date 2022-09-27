@@ -8,20 +8,21 @@ const links = [
     id: 1,
     text: "stats",
     path: "/",
+    exactly: true,
     icon: <IoBarChartSharp />
   },
   {
     id: 2,
     text: "all quizes",
     path: "quizes",
-    exact: true,
+    exactly: true,
     icon: <MdQueryStats />
   },
   {
     id: 3,
     text: "add quiz",
     path: "add-quiz",
-    exact: true,
+    exactly: true,
     icon: <FaWpforms />
   },
   {

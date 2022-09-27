@@ -21,7 +21,7 @@ const Profile = () => {
   };
 
   return (
-    <section className="updateProfile">
+    <section className="editSubmitFormSection">
       <form className="form" onSubmit={handleSubmit}>
         <h3>Profile</h3>
         <div className="form-center">

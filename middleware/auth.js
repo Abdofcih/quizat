@@ -6,6 +6,7 @@ const Auth = async (req, res, next) => {
   console.log(req.headers);
 
   if (!authToken || !authToken.startsWith("Bearer")) {
+    console.log("no header");
     throw new UnAuthenticatedError("Auth: Invalid Authentication");
   }
   //get token  "Bearer 123" => ["Bearer" , "123"] => "123"
