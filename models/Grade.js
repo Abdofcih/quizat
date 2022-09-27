@@ -1,9 +1,12 @@
 import mongoose from "mongoose";
 
 const GradeSchema = mongoose.Schema({
-  quizId: { type: mongoose.Types.ObjectId, ref: "quiz" },
-  userId: { type: mongoose.Types.ObjectId, ref: "user" },
-  grade: { type: Number, min: 0 },
+  quizId: { required: true, type: mongoose.Types.ObjectId, ref: "quiz" },
+  // in next versions
+  //userId: { required:true , type: mongoose.Types.ObjectId, ref: "user" },
+  userEmail: { type: String, required: [true, "Email is required"] },
+  userName: String,
+  grade: { required: true, type: String },
   message: String
 });
 

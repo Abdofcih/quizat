@@ -13,7 +13,10 @@ import AuthenticateUser from "./middleware/auth.js";
 import authRouter from "./router/authRouter.js";
 import quizRouter from "./router/quizRouter.js";
 import questionRouter from "./router/questionRouter.js";
+import gradeRouter from "./router/gradeRouter.js";
+import { publicRouter } from "./router/questionRouter.js";
 
+//middleware
 import RouteNotFoundMiddleware from "./middleware/route-not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 const port = process.env.PORT || 5000;
@@ -32,9 +35,11 @@ app.get("/", (req, res) => {
 });
 
 // set routes middleware
+app.use("/api/questions", publicRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/quizzes", AuthenticateUser, quizRouter);
 app.use("/api/questions", AuthenticateUser, questionRouter);
+app.use("/api/grades", gradeRouter);
 // if no route matches
 app.use(RouteNotFoundMiddleware);
 // if route matches but there is ERROR

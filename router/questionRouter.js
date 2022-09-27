@@ -8,14 +8,15 @@ import {
 } from "../controller/questionController.js";
 
 const router = express.Router();
+const publicRouter = express.Router();
 
-router
-  .route("/")
-  .post(createQuestion)
-  .get(getQuizQuestions);
+router.route("/").post(createQuestion);
 router
   .route("/:id")
   .delete(deleteQuestion)
   .patch(updateQuestion);
 
+publicRouter.route("/:id").get(getQuizQuestions);
+
 export default router;
+export { publicRouter };

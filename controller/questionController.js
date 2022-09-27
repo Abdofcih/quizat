@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import Question from "../models/Question.js";
 import Quiz from "../models/Quiz.js";
 import { StatusCodes } from "http-status-codes";
@@ -80,7 +79,7 @@ export const deleteQuestion = async (req, res) => {
 
 // get quiz questions
 export const getQuizQuestions = async (req, res) => {
-  const { quizId } = req.body;
+  const { id: quizId } = req.params;
   if (!quizId) {
     console.log("Quiz Id does not exist");
     throw new BadRequestError("Quiz Id does not exist");
