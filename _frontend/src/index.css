@@ -1,5 +1,10 @@
 /* fonts */
 @import url("https://fonts.googleapis.com/css2?family=Cabin&family=Roboto+Condensed:wght@400;700&display=swap");
+@font-face {
+  font-family: "FredokaOne-Regular";
+  src: local("FredokaOne-Regular"),
+    url("./assets/fonts/FredokaOne-Regular.ttf") format("truetype");
+}
 
 html {
   font-size: 100%;
@@ -38,8 +43,8 @@ html {
   --green-dark: #0f5132;
 
   /* fonts  */
-  --headingFont: "Roboto Condensed", Sans-Serif;
-  --bodyFont: "Cabin", Sans-Serif;
+  --headingFont: "FredokaOne-Regular", "Roboto Condensed", Sans-Serif;
+  --bodyFont: "FredokaOne-Regular", "Cabin", Sans-Serif;
   --small-text: 0.875rem;
   --extra-small-text: 0.7em;
   /* rest of the vars */

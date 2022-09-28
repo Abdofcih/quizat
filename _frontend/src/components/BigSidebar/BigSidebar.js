@@ -12,7 +12,7 @@ const BigSidebar = () => {
       >
         <div className="content">
           <header>
-            <Logo />
+            <Logo color="white" />
           </header>
           <NavLinks toggleSidebar={() => {}} />
         </div>

@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server --ignore _frontend",
     "client": "npm start --prefix _frontend",
-    "start": "concurrently --kill-others-on-fail \"C:\\Users\\abdo\\mongodb\\bin\\mongod.exe --dbpath=C:\\Users\\abdo\\mongodb-data\" \"npm run server\" \"\""
+    "start": "concurrently --kill-others-on-fail \"C:\\Users\\abdo\\mongodb\\bin\\mongod.exe --dbpath=C:\\Users\\abdo\\mongodb-data\" \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",

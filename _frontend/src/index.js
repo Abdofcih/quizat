@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./assets/fonts/FredokaOne-Regular.ttf";
 import "react-toastify/dist/ReactToastify.css";
 import "normalize.css";
 import "./index.css";
