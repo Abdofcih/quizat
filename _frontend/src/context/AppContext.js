@@ -11,7 +11,11 @@ import {
   SETUP_USER_SUCCESS,
   LOGOUT_USER,
   UPDATE_USER_SUCCESS,
-  CREATE_QUIZ_SUCCESS
+  CREATE_QUIZ_SUCCESS,
+  GET_QUIZZES_SUCCESS,
+  CLEAR_FILTERS,
+  SET_EDIT_QUIZ,
+  CHANGE_PAGE
 } from "./actions";
 
 // first of all get what in local storage
@@ -31,7 +35,19 @@ const initialValues = {
   quizBgUrl: "",
   //check form mode whether is editing or adding
   isEditing: false,
-  idIfItIsEditing: ""
+  idIfItIsEditing: "",
+  // filter related  values
+  numOfPages: 1,
+  page: 1,
+  searchFilter: "",
+  quizSubjectFilter: "all",
+  sortOptions: ["latest", "oldest", "a-z", "z-a"],
+  sort: "a-z",
+  // state of all quizzes from backend
+  quizzes: [],
+  totalQuizzes: 0,
+  // stats from backend
+  stats: {}
 };
 const appContext = React.createContext();
 
@@ -192,17 +208,63 @@ const AppContextProvider = ({ children }) => {
     }
   };
   /* End create quiz  */
+  /** start set edit quiz  */
+  const setEditQuiz = (id = "xyz") => {
+    console.log(`Editing : ${id}`);
+    dispatch({ type: SET_EDIT_QUIZ, payload: { id } });
+  };
+  /** End set edit quiz */
   /* Start Edit quiz */
   const editQuiz = async () => {
     console.log("Editing");
   };
+  const deleteQuiz = async () => {
+    console.log("Editing");
+  };
   /* End edit quiz */
+  /** Start get Quizzes  */
+  const getAllQuizzes = async () => {
+    dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
+    // backend { title, subject}
+
+    const { page, searchFilter, quizSubjectFilter, sort } = state;
+    let getUrl = `/quizzes?page=${page}&subject=${quizSubjectFilter}&sort=${sort}`;
+    if (searchFilter) {
+      getUrl = getUrl + `&search=${searchFilter}`;
+    }
+    try {
+      const { data } = await authFetch.get(getUrl);
+      const { quizzes, totalQuizzes, numOfPages } = data;
+
+      dispatch({
+        type: GET_QUIZZES_SUCCESS,
+        payload: { quizzes, totalQuizzes, numOfPages }
+      });
+    } catch (error) {
+      console.log(error.response);
+      //if error log out and start over
+      // logoutUser();
+    }
+  };
+
+  /** End get Quizzes */
+  /**Start removing filter values */
+  const clearFilter = () => {
+    console.log(" clear filter ");
+    dispatch({ type: CLEAR_FILTERS });
+  };
+  /** */
   /* Start logout user*/
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER });
     removeUserFromLocalStorage();
   };
   /* End logout user */
+  /** start change page number */
+  const changePage = page => {
+    dispatch({ type: CHANGE_PAGE, payload: { page } });
+  };
+  /** start change page number */
   return (
     <appContext.Provider
       value={{
@@ -216,6 +278,11 @@ const AppContextProvider = ({ children }) => {
         toggleLoading,
         createQuiz,
         editQuiz,
+        clearFilter,
+        getAllQuizzes,
+        setEditQuiz,
+        deleteQuiz,
+        changePage,
         logoutUser
       }}
     >

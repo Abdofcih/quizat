@@ -5,7 +5,11 @@
   src: local("FredokaOne-Regular"),
     url("./assets/fonts/FredokaOne-Regular.ttf") format("truetype");
 }
-
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
 html {
   font-size: 100%;
 } /*16px*/

@@ -7,6 +7,7 @@ import {
   Stats,
   Profile,
   AddQuiz,
+  GetQuizzes,
   Protected
 } from "./pages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -25,6 +26,7 @@ function App() {
         >
           <Route index element={<Stats />} />
           <Route path="/add-quiz" element={<AddQuiz />} />
+          <Route path="/quizzes" element={<GetQuizzes />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
         <Route path="/welcome" element={<Landing />} />

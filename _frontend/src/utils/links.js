@@ -13,8 +13,8 @@ const links = [
   },
   {
     id: 2,
-    text: "all quizes",
-    path: "quizes",
+    text: "all quizzes",
+    path: "quizzes",
     exactly: true,
     icon: <MdQueryStats />
   },

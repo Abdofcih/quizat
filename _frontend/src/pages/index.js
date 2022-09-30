@@ -5,6 +5,7 @@ import Protected from "./Protected/Protected";
 import Stats from "./Protected/Stats/Stats";
 import Profile from "./Protected/Profile/Profile";
 import AddQuiz from "./Protected/AddQuiz/AddQuiz";
+import GetQuizzes from "./Protected/GetQuizzes/GetQuizzes";
 import SharedLayout from "./Protected/SharedLayout/SharedLayout";
 
 export {
@@ -14,6 +15,7 @@ export {
   Stats,
   Profile,
   AddQuiz,
+  GetQuizzes,
   Protected,
   SharedLayout
 };

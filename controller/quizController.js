@@ -22,7 +22,7 @@ export const createQuiz = async (req, res) => {
   res.status(StatusCodes.CREATED).json(quiz);
 };
 export const getAllQuizzes = async (req, res) => {
-  const { search, sort } = req.query;
+  const { search, sort, subject } = req.query;
   const queryObject = {
     createdBy: req.user.id
   };
@@ -50,7 +50,7 @@ export const getAllQuizzes = async (req, res) => {
   }
   //req.query.pageNum is a string
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 10;
+  const limit = Number(req.query.limit) || 8;
   const skip = (page - 1) * limit;
 
   result.skip(skip).limit(limit);

@@ -6,7 +6,11 @@ import {
   SETUP_USER_SUCCESS,
   LOGOUT_USER,
   UPDATE_USER_SUCCESS,
-  CREATE_QUIZ_SUCCESS
+  CREATE_QUIZ_SUCCESS,
+  GET_QUIZZES_SUCCESS,
+  SET_EDIT_QUIZ,
+  CLEAR_FILTERS,
+  CHANGE_PAGE
 } from "./actions";
 
 const reducer = (state, { type, payload }) => {
@@ -27,6 +31,14 @@ const reducer = (state, { type, payload }) => {
       description: "",
       bgUrl: "",
       isEditing: ""
+    };
+  }
+  if (type === CLEAR_FILTERS) {
+    return {
+      ...state,
+      page: 1,
+      searchFilter: "",
+      quizSubjectFilter: "all"
     };
   }
   if (type === HANDLE_FORM_CHANGE) {
@@ -52,7 +64,40 @@ const reducer = (state, { type, payload }) => {
       isLoading: false
     };
   }
+  if (type === GET_QUIZZES_SUCCESS) {
+    const { quizzes, totalQuizzes, numOfPages } = payload;
 
+    return {
+      ...state,
+      isLoading: false,
+      quizzes,
+      totalQuizzes,
+      numOfPages
+    };
+  }
+  if (type === SET_EDIT_QUIZ) {
+    const { _id, title, subject, description, bgUrl } = state.quizzes.find(
+      quiz => quiz._id === payload.id
+    );
+    const tempState = {
+      ...state,
+      isEditing: true,
+      idIfItIsEditing: _id,
+      title,
+      subject,
+      description,
+      bgUrl
+    };
+    return tempState;
+  }
+  if (type === CHANGE_PAGE) {
+    const { page } = payload;
+
+    return {
+      ...state,
+      page
+    };
+  }
   if (type === LOGOUT_USER) {
     return { ...state, user: null, token: null };
   }

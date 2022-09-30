@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FormRow, SelectFormRow } from "../../../components";
 import { useAppContext } from "../../../context/AppContext";
 import "./AddQuiz.css";
@@ -49,7 +49,7 @@ const AddQuiz = () => {
       <form className="form">
         <h3>{isEditing ? "Edit Quiz" : "Add Quiz"}</h3>
         <div className="form-center">
-          {/* Position */}
+          {/* title */}
           <FormRow
             type="text"
             name="quizTitle"
