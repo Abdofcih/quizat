@@ -14,6 +14,8 @@ export const GET_QUIZZES_SUCCESS = "GET_QUIZZES_SUCCESS";
 
 export const SET_EDIT_QUIZ = "SET_EDIT_QUIZ";
 
+export const SET_QUIZ_ID = "SET_QUIZ_ID";
+
 export const CHANGE_WRONG_ANSERS = "CHANGE_WRONG_ANSERS";
 
 export const EDIT_QUIZ_SUCCESS = "EDIT_QUIZ_SUCCESS";

@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 app.use("/api/questions", publicRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/quizzes", quizRouter);
-app.use("/api/questions", AuthenticateUser, questionRouter);
+app.use("/api/questions", questionRouter);
 app.use("/api/grades", gradeRouter);
 // if no route matches
 app.use(RouteNotFoundMiddleware);

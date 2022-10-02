@@ -17,6 +17,7 @@ import {
   GET_QUIZZES_SUCCESS,
   CLEAR_FILTERS,
   SET_EDIT_QUIZ,
+  SET_QUIZ_ID,
   CHANGE_PAGE
 } from "./actions";
 
@@ -52,6 +53,7 @@ const initialValues = {
   stats: {},
   // state related to quiz  =>>>  question
   isEditingQuestion: false,
+  IdOfQuestionQuiz: "",
   quizQuestions: [],
   totalQuizQuestion: 0,
   questionTitleType: "text",
@@ -312,10 +314,61 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: CLEAR_FILTERS });
   };
   /** */
-  /** question wrong answers edit */
+  /** Start question wrong answers edit */
   const handleWrongAnswersChange = ({ index, value }) => {
     dispatch({ type: CHANGE_WRONG_ANSERS, payload: { index, value } });
   };
+  /** End question wrong answers edit */
+
+  /** Satrt Set quiz id */
+
+  const setQuizId = id => {
+    dispatch({ type: SET_QUIZ_ID, payload: { id } });
+  };
+  /** EndSet quiz id */
+
+  /** Start create question */
+  const createQuestion = async () => {
+    console.log("Creating question");
+    dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
+    try {
+      // var:alias to be clear and I used these names in backend
+      const {
+        IdOfQuestionQuiz: quizId,
+        questionTitleType: titleType,
+        questionTitleTypeAssetUrl: titleTypeAssetUrl,
+        questionTitle: title,
+        questionWrongAnswers: wrongAnswers,
+        questionCorrectAnswer: correctAnswer
+      } = state;
+      const newQuestion = {
+        titleType,
+        quizId,
+        titleTypeAssetUrl,
+        title,
+        wrongAnswers,
+        correctAnswer
+      };
+      const { data } = await authFetch.post(`/questions`, newQuestion);
+
+      doToast({ message: `question  created `, type: "success" });
+      dispatch({
+        type: CREATE_QUIZ_SUCCESS
+      });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: TOGGLE_LOADING, payload: { value: false } });
+      doToast({ message: error.response.data.msg, type: "error" });
+      /* 
+      if (error.response.status === 401) {
+        custom error for this case
+         doToast({ message: error.response.data.msg, type: "error" });
+      } */
+    }
+  };
+
+  /** End create question */
+
   /* Start logout user*/
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER });
@@ -345,7 +398,9 @@ const AppContextProvider = ({ children }) => {
         setEditQuiz,
         deleteQuiz,
         handleWrongAnswersChange,
+        createQuestion,
         changePage,
+        setQuizId,
         logoutUser
       }}
     >

@@ -12,6 +12,7 @@ import {
   SET_EDIT_QUIZ,
   CLEAR_FILTERS,
   CHANGE_WRONG_ANSERS,
+  SET_QUIZ_ID,
   CHANGE_PAGE
 } from "./actions";
 
@@ -111,6 +112,13 @@ const reducer = (state, { type, payload }) => {
     return {
       ...state,
       page
+    };
+  }
+  if (type === SET_QUIZ_ID) {
+    const { id } = payload;
+    return {
+      ...state,
+      IdOfQuestionQuiz: id
     };
   }
   if (type === CHANGE_WRONG_ANSERS) {

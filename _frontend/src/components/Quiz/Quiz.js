@@ -15,7 +15,7 @@ const Quiz = ({
   bgUrl,
   createdAt
 }) => {
-  const { setEditQuiz, deleteQuiz } = useAppContext();
+  const { setEditQuiz, deleteQuiz, setQuizId } = useAppContext();
   const date = formatDate(createdAt);
   return (
     <article className="quizComponent">
@@ -42,7 +42,7 @@ const Quiz = ({
               <Link
                 to="/add-question"
                 className="btn add-btn"
-                onClick={() => setEditQuiz(_id)}
+                onClick={() => setQuizId(_id)}
               >
                 Add Question
               </Link>

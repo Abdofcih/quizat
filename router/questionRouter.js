@@ -1,5 +1,5 @@
 import express from "express";
-//import AuthenticateUser from "../middleware/auth.js";
+import AuthenticateUser from "../middleware/auth.js";
 import {
   createQuestion,
   getQuizQuestions,
@@ -10,7 +10,7 @@ import {
 const router = express.Router();
 const publicRouter = express.Router();
 
-router.route("/").post(createQuestion);
+router.route("/").post(AuthenticateUser, createQuestion);
 router
   .route("/:id")
   .delete(deleteQuestion)

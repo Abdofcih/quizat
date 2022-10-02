@@ -10,15 +10,21 @@ import { useAppContext } from "../../../context/AppContext";
 
 const AddQuestion = () => {
   const {
+    isLoading,
     isEditingQuestion,
     questionTitleType,
     questionTitleTypeOptions,
     handleFormChange,
     questionTitle,
     questionTitleTypeAssetUrl,
+    createQuestion,
     questionCorrectAnswer
   } = useAppContext();
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    createQuestion();
+  };
   // use handleChange of the context
   const handleChange = e => {
     const { name, value } = e.target;
@@ -68,6 +74,14 @@ const AddQuestion = () => {
             handleChange={handleChange}
           />
           <WrongAnswers />
+          <button
+            type="submit"
+            className="btn btn-block btn-submit"
+            onClick={handleSubmit}
+            disabled={isLoading}
+          >
+            {isLoading ? "Wait ..." : "submit"}
+          </button>
         </div>
       </form>
     </section>
