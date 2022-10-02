@@ -6,7 +6,15 @@ import "./Quiz.css";
 import { QuizInfo } from "../index";
 import formatDate from "../../utils/formatDate";
 
-const Quiz = ({ _id, title, subject, description, bgUrl, createdAt }) => {
+const Quiz = ({
+  _id,
+  title,
+  subject,
+  description,
+  numberOfQuestions,
+  bgUrl,
+  createdAt
+}) => {
   const { setEditQuiz, deleteQuiz } = useAppContext();
   const date = formatDate(createdAt);
   return (
@@ -24,7 +32,7 @@ const Quiz = ({ _id, title, subject, description, bgUrl, createdAt }) => {
         <div className="content-center">
           <QuizInfo
             icon={<FaQuestionCircle />}
-            text={`${10} Questions`}
+            text={`${numberOfQuestions} Questions`}
           ></QuizInfo>
           <div className={`status ${subject}`}>{subject}</div>
         </div>
@@ -32,7 +40,7 @@ const Quiz = ({ _id, title, subject, description, bgUrl, createdAt }) => {
           <div className="actions">
             <div>
               <Link
-                to="/questions/add"
+                to="/add-question"
                 className="btn add-btn"
                 onClick={() => setEditQuiz(_id)}
               >

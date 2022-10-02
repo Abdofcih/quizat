@@ -23,6 +23,11 @@ export const createQuestion = async (req, res) => {
   }
   checkPermissions({ requestUser: req.user, resourceUserId: quiz.createdBy });
 
+  // I am going to add a question
+  // so I will increase the number of them
+  const numberOfQuestions = quiz.numberOfQuestions + 1;
+  await Quiz.findOneAndUpdate({ _id: quizId }, { numberOfQuestions });
+
   const question = await Question.create(req.body);
   res.status(StatusCodes.CREATED).json(question);
 };
@@ -68,6 +73,11 @@ export const deleteQuestion = async (req, res) => {
     throw new NotFoundError("Quiz does not exist");
   }
   checkPermissions({ requestUser: req.user, resourceUserId: quiz.createdBy });
+
+  // I am going to remove a question
+  // so I will decrease the number of them
+  const numberOfQuestions = quiz.numberOfQuestions - 1;
+  await Quiz.findOneAndUpdate({ _id: question.quizId }, { numberOfQuestions });
   await question.remove();
 
   res.json({

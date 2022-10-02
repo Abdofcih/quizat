@@ -7,9 +7,11 @@ import {
   LOGOUT_USER,
   UPDATE_USER_SUCCESS,
   CREATE_QUIZ_SUCCESS,
+  EDIT_QUIZ_SUCCESS,
   GET_QUIZZES_SUCCESS,
   SET_EDIT_QUIZ,
   CLEAR_FILTERS,
+  CHANGE_WRONG_ANSERS,
   CHANGE_PAGE
 } from "./actions";
 
@@ -26,11 +28,13 @@ const reducer = (state, { type, payload }) => {
   if (type === CLEAR_FORM) {
     return {
       ...state,
-      title: "",
-      subject: "",
-      description: "",
-      bgUrl: "",
-      isEditing: ""
+
+      isEditing: false,
+      idIfItIsEditing: "",
+      quizTitle: "",
+      quizSubject: "",
+      quizDescription: "",
+      quizBgUrl: ""
     };
   }
   if (type === CLEAR_FILTERS) {
@@ -76,19 +80,30 @@ const reducer = (state, { type, payload }) => {
     };
   }
   if (type === SET_EDIT_QUIZ) {
-    const { _id, title, subject, description, bgUrl } = state.quizzes.find(
-      quiz => quiz._id === payload.id
-    );
+    const {
+      _id,
+      title: quizTitle,
+      subject: quizSubject,
+      description: quizDescription,
+      bgUrl: quizBgUrl
+    } = state.quizzes.find(quiz => quiz._id === payload.id);
     const tempState = {
       ...state,
       isEditing: true,
       idIfItIsEditing: _id,
-      title,
-      subject,
-      description,
-      bgUrl
+      quizTitle,
+      quizSubject,
+      quizDescription,
+      quizBgUrl
     };
     return tempState;
+  }
+
+  if (type === EDIT_QUIZ_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false
+    };
   }
   if (type === CHANGE_PAGE) {
     const { page } = payload;
@@ -98,8 +113,17 @@ const reducer = (state, { type, payload }) => {
       page
     };
   }
+  if (type === CHANGE_WRONG_ANSERS) {
+    const { index, value } = payload;
+    const temp = state.questionWrongAnswers;
+    temp[index] = value;
+    return {
+      ...state,
+      questionWrongAnswers: temp
+    };
+  }
   if (type === LOGOUT_USER) {
-    return { ...state, user: null, token: null };
+    return { ...state, user: null, token: null, isLoading: false };
   }
   // if no types matches
   throw new Error(`no such action : ${type}`);

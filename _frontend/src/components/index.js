@@ -2,6 +2,7 @@ import Logo from "./Logo/Logo";
 import Loading from "./Loading/Loading";
 import RegisterForm from "./Register/Register";
 import FormRow from "./FormRow/FormRow";
+import ToggleRow from "./ToggleRow/ToggleRow";
 import SelectFormRow from "./SelectFormRow/SelectFormRow";
 import NavLinks from "./NavLinks/NavLinks";
 import Navbar from "./Navbar/Navbar";
@@ -11,12 +12,14 @@ import SearchContainer from "./SearchContainer/SearchContainer";
 import QuizzesContainer from "./QuizzesContainer/QuizzesContainer";
 import Quiz from "./Quiz/Quiz";
 import QuizInfo from "./QuizInfo/QuizInfo";
+import WrongAnswers from "./WrongAnswers/WrongAnswers";
 import PageBtnContainer from "./PageBtnContainer/PageBtnContainer";
 
 export {
   Logo,
   RegisterForm,
   FormRow,
+  ToggleRow,
   SelectFormRow,
   NavLinks,
   Navbar,
@@ -27,5 +30,6 @@ export {
   PageBtnContainer,
   Quiz,
   QuizInfo,
-  Loading
+  Loading,
+  WrongAnswers
 };

@@ -12,6 +12,8 @@ import {
   LOGOUT_USER,
   UPDATE_USER_SUCCESS,
   CREATE_QUIZ_SUCCESS,
+  EDIT_QUIZ_SUCCESS,
+  CHANGE_WRONG_ANSERS,
   GET_QUIZZES_SUCCESS,
   CLEAR_FILTERS,
   SET_EDIT_QUIZ,
@@ -47,7 +49,21 @@ const initialValues = {
   quizzes: [],
   totalQuizzes: 0,
   // stats from backend
-  stats: {}
+  stats: {},
+  // state related to quiz  =>>>  question
+  isEditingQuestion: false,
+  quizQuestions: [],
+  totalQuizQuestion: 0,
+  questionTitleType: "text",
+  questionTitleTypeOptions: ["text", "photo", "audio", "video"],
+  questionTitleTypeAssetUrl: "",
+  questionTitle: "",
+  questionWrongAnswers: [],
+  questionCorrectAnswer: "",
+  //quizId will be  idIfItIsEditing
+  // state related to quiz  =>>>  students
+  quizStudents: [],
+  totalQuizStudents: 0
 };
 const appContext = React.createContext();
 
@@ -191,7 +207,7 @@ const AppContextProvider = ({ children }) => {
       const newQuiz = { title, subject, description, bgUrl };
       const { data } = await authFetch.post(`/quizzes`, newQuiz);
 
-      doToast({ message: `Job ${data.title} created `, type: "success" });
+      doToast({ message: `Quiz ${data.title} created `, type: "success" });
       dispatch({
         type: CREATE_QUIZ_SUCCESS
       });
@@ -217,11 +233,53 @@ const AppContextProvider = ({ children }) => {
   /* Start Edit quiz */
   const editQuiz = async () => {
     console.log("Editing");
+    dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
+
+    try {
+      const {
+        quizTitle: title,
+        quizSubject: subject,
+        quizDescription: description,
+        quizBgUrl: bgUrl,
+        idIfItIsEditing
+      } = state; //quizzes/6330ab8d481098346390ec12
+      const editedQuiz = { title, subject, description, bgUrl };
+      const { data } = await authFetch.patch(
+        `/quizzes/${idIfItIsEditing}`,
+        editedQuiz
+      );
+
+      doToast({
+        message: `Quiz  edited `,
+        type: "success"
+      });
+      dispatch({
+        type: EDIT_QUIZ_SUCCESS
+      });
+      dispatch({ type: CLEAR_FORM });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: TOGGLE_LOADING, payload: { value: false } });
+      doToast({ message: error.response.data.msg, type: "error" });
+    }
   };
-  const deleteQuiz = async () => {
-    console.log("Editing");
+  /** End edit quiz  */
+
+  /** Start delete quiz */
+  const deleteQuiz = async _id => {
+    console.log("deleting");
+    dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
+    try {
+      await authFetch.delete(`/quizzes/${_id}`);
+      doToast({ message: "quiz deleted", type: "success" });
+      getAllQuizzes();
+    } catch (error) {
+      console.log(error.response);
+      // logoutUser();
+    }
   };
-  /* End edit quiz */
+  /* End delete quiz */
+
   /** Start get Quizzes  */
   const getAllQuizzes = async () => {
     dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
@@ -254,6 +312,10 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: CLEAR_FILTERS });
   };
   /** */
+  /** question wrong answers edit */
+  const handleWrongAnswersChange = ({ index, value }) => {
+    dispatch({ type: CHANGE_WRONG_ANSERS, payload: { index, value } });
+  };
   /* Start logout user*/
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER });
@@ -282,6 +344,7 @@ const AppContextProvider = ({ children }) => {
         getAllQuizzes,
         setEditQuiz,
         deleteQuiz,
+        handleWrongAnswersChange,
         changePage,
         logoutUser
       }}

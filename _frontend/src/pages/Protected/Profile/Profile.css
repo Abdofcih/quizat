@@ -20,6 +20,7 @@
 }
 .editSubmitFormSection .form-center {
   display: grid;
+  grid-template-columns: 1fr;
   row-gap: 0.5rem;
 }
 .editSubmitFormSection .form-center button {

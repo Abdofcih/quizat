@@ -17,6 +17,10 @@ const QuizSchema = mongoose.Schema(
       maxLength: 250
     },
     bgUrl: String,
+    numberOfQuestions: {
+      type: Number,
+      default: 0
+    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "user",

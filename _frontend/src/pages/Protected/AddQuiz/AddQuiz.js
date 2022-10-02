@@ -56,14 +56,14 @@ const AddQuiz = () => {
             value={quizTitle}
             handleChange={handleJobInput}
           />
-          {/* company */}
+          {/* description */}
           <FormRow
             type="text"
             name="quizDescription"
             value={quizDescription}
             handleChange={handleJobInput}
           />
-          {/* jobLocation */}
+          {/* main image */}
           <FormRow
             type="text"
             lableText="background image URL"

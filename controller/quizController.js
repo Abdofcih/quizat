@@ -93,7 +93,7 @@ export const updateQuiz = async (req, res) => {
     new: true, // retrun the new updated quiz not the old one
     runValidators: true // if prop is not here path the check
   });
-  res.status(StatusCodes.OK).json({ updatedQuiz });
+  res.status(StatusCodes.OK).json(updatedQuiz);
 };
 
 export const getStats = async (req, res) => {

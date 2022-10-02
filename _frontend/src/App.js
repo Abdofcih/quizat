@@ -7,6 +7,7 @@ import {
   Stats,
   Profile,
   AddQuiz,
+  AddQuestion,
   GetQuizzes,
   Protected
 } from "./pages";
@@ -27,6 +28,7 @@ function App() {
           <Route index element={<Stats />} />
           <Route path="/add-quiz" element={<AddQuiz />} />
           <Route path="/quizzes" element={<GetQuizzes />} />
+          <Route path="/add-question" element={<AddQuestion />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
         <Route path="/welcome" element={<Landing />} />
