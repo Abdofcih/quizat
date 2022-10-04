@@ -17,7 +17,7 @@ const WrongAnswers = () => {
     handleWrongAnswersChange({ index, value });
   };
   return (
-    <div className="fullGrid">
+    <div className=" wrongAnswers fullGrid ">
       {Array.from({ length: inputsNum }).map((_, index) => {
         const name = `Answer${index + 1}`;
         return (

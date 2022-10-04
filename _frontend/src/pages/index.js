@@ -6,6 +6,7 @@ import Stats from "./Protected/Stats/Stats";
 import Profile from "./Protected/Profile/Profile";
 import AddQuiz from "./Protected/AddQuiz/AddQuiz";
 import AddQuestion from "./Protected/AddQuestion/AddQuestion";
+import GetQuestions from "./Protected/GetQuestions/GetQuestions";
 import GetQuizzes from "./Protected/GetQuizzes/GetQuizzes";
 import SharedLayout from "./Protected/SharedLayout/SharedLayout";
 
@@ -17,6 +18,7 @@ export {
   Profile,
   AddQuiz,
   AddQuestion,
+  GetQuestions,
   GetQuizzes,
   Protected,
   SharedLayout

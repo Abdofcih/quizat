@@ -82,27 +82,7 @@
   display: flex;
   justify-content: space-between;
 }
-.quizComponent .edit-btn,
-.quizComponent .add-btn,
-.quizComponent .delete-btn {
-  letter-spacing: var(--letterSpacing);
-  cursor: pointer;
-  height: 30px;
-}
-.quizComponent .add-btn {
-  color: var(--green-dark);
-  background: var(--green-light);
-  margin-right: 0.5rem;
-}
-.quizComponent .edit-btn {
-  color: #e9b949;
-  background: #fcefc7;
-  margin-right: 0.5rem;
-}
-.quizComponent .delete-btn {
-  color: var(--red-dark);
-  background: var(--red-light);
-}
+
 .quizComponent:hover .actions {
   visibility: visible;
 }

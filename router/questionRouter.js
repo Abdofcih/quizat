@@ -13,10 +13,10 @@ const publicRouter = express.Router();
 router.route("/").post(AuthenticateUser, createQuestion);
 router
   .route("/:id")
-  .delete(deleteQuestion)
-  .patch(updateQuestion);
+  .delete(AuthenticateUser, deleteQuestion)
+  .patch(AuthenticateUser, updateQuestion);
 
-publicRouter.route("/:id").get(getQuizQuestions);
+publicRouter.route("/:id").get(AuthenticateUser, getQuizQuestions);
 
 export default router;
 export { publicRouter };

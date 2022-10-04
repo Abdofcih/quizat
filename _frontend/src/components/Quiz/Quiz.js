@@ -40,24 +40,24 @@ const Quiz = ({
           <div className="actions">
             <div>
               <Link
-                to="/add-question"
-                className="btn add-btn"
+                to="/quizzes/quiz-questions"
+                className="btn main-btn"
                 onClick={() => setQuizId(_id)}
               >
-                Add Question
+                View Questions
               </Link>
             </div>
             <div>
               <Link
                 to="/add-quiz"
-                className="btn edit-btn"
+                className="btn  green-btn"
                 onClick={() => setEditQuiz(_id)}
               >
                 Edit
               </Link>
               <button
                 type="button"
-                className="btn delete-btn"
+                className="btn btn-danger"
                 onClick={() => deleteQuiz(_id)}
               >
                 Delete

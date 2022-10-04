@@ -13,6 +13,7 @@ import QuizzesContainer from "./QuizzesContainer/QuizzesContainer";
 import Quiz from "./Quiz/Quiz";
 import QuizInfo from "./QuizInfo/QuizInfo";
 import WrongAnswers from "./WrongAnswers/WrongAnswers";
+import Question from "./Question/Question";
 import PageBtnContainer from "./PageBtnContainer/PageBtnContainer";
 
 export {
@@ -31,5 +32,6 @@ export {
   Quiz,
   QuizInfo,
   Loading,
-  WrongAnswers
+  WrongAnswers,
+  Question
 };

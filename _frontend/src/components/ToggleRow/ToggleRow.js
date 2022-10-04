@@ -43,7 +43,7 @@ const ToggleRow = ({
                 <span className="form__radio-button"></span>
                 {toggleValue == defaultValue.value
                   ? defaultValue.label
-                  : `title with ${toggleValue}`}
+                  : `${toggleValue}`}
               </label>
             </div>
           );

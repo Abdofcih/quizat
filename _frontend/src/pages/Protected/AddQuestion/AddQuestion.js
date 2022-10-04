@@ -18,11 +18,17 @@ const AddQuestion = () => {
     questionTitle,
     questionTitleTypeAssetUrl,
     createQuestion,
-    questionCorrectAnswer
+    questionCorrectAnswer,
+    editQuestion,
+    clearForm
   } = useAppContext();
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (isEditingQuestion) {
+      editQuestion();
+      return;
+    }
     createQuestion();
   };
   // use handleChange of the context
@@ -37,22 +43,22 @@ const AddQuestion = () => {
       <form className="form">
         <h3>{isEditingQuestion ? "Edit Question" : "Add Question"}</h3>
         <div className="form-center">
-          <ToggleRow
-            inputId="questionTitleType"
-            value={questionTitleType}
-            toggleValues={questionTitleTypeOptions}
-            lableText="Question Type "
-            name="questionTitleType"
-            handleChange={handleChange}
-            defaultValue={{ value: "text", label: "Title only" }}
-          />
-
           <FormRow
             type="text"
             lableText="Question Title"
             name="questionTitle"
             value={questionTitle}
             handleChange={handleChange}
+          />
+
+          <ToggleRow
+            inputId="questionTitleType"
+            value={questionTitleType}
+            toggleValues={questionTitleTypeOptions}
+            lableText="Title with"
+            name="questionTitleType"
+            handleChange={handleChange}
+            defaultValue={{ value: "text", label: "Nothing" }}
           />
 
           {/* Asset url */}
@@ -74,14 +80,27 @@ const AddQuestion = () => {
             handleChange={handleChange}
           />
           <WrongAnswers />
-          <button
-            type="submit"
-            className="btn btn-block btn-submit"
-            onClick={handleSubmit}
-            disabled={isLoading}
-          >
-            {isLoading ? "Wait ..." : "submit"}
-          </button>
+
+          <div className="btn-container">
+            <button
+              type="submit"
+              className="btn btn-block btn-submit"
+              onClick={handleSubmit}
+              disabled={isLoading}
+            >
+              {isLoading ? "Wait ..." : "submit"}
+            </button>
+            <button
+              type="button"
+              className="btn btn-block clear-btn"
+              onClick={e => {
+                e.preventDefault();
+                clearForm();
+              }}
+            >
+              clear
+            </button>
+          </div>
         </div>
       </form>
     </section>

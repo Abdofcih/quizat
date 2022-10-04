@@ -52,6 +52,7 @@ const AddQuiz = () => {
           {/* title */}
           <FormRow
             type="text"
+            lableText="Quiz Title"
             name="quizTitle"
             value={quizTitle}
             handleChange={handleJobInput}
@@ -59,6 +60,7 @@ const AddQuiz = () => {
           {/* description */}
           <FormRow
             type="text"
+            lableText="Quiz Description"
             name="quizDescription"
             value={quizDescription}
             handleChange={handleJobInput}

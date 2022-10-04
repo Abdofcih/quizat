@@ -17,7 +17,7 @@ const Landing = () => {
           </h1>
           <p>Test your english level by taking quizes .</p>
           {/* button to Link */}
-          <Link to="/register" className="btn btn-hero">
+          <Link to="/register" className="btn main-btn btn-hero">
             Get started - it's free
           </Link>
         </div>

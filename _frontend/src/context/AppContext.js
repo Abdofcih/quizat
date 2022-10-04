@@ -18,6 +18,10 @@ import {
   CLEAR_FILTERS,
   SET_EDIT_QUIZ,
   SET_QUIZ_ID,
+  CREATE_QUESTION_SUCCESS,
+  GET_QUESTIONS_SUCCESS,
+  DELETE_QUESTION_SUCCESS,
+  SET_EDIT_QUESTION,
   CHANGE_PAGE
 } from "./actions";
 
@@ -53,9 +57,12 @@ const initialValues = {
   stats: {},
   // state related to quiz  =>>>  question
   isEditingQuestion: false,
-  IdOfQuestionQuiz: "",
+  IdOfQuestionQuiz: "", //quiz
+  questionQuiz: {},
   quizQuestions: [],
   totalQuizQuestion: 0,
+  //-- question added or edited
+  idOfQuestion: "",
   questionTitleType: "text",
   questionTitleTypeOptions: ["text", "photo", "audio", "video"],
   questionTitleTypeAssetUrl: "",
@@ -353,7 +360,7 @@ const AppContextProvider = ({ children }) => {
 
       doToast({ message: `question  created `, type: "success" });
       dispatch({
-        type: CREATE_QUIZ_SUCCESS
+        type: CREATE_QUESTION_SUCCESS
       });
     } catch (error) {
       console.log(error);
@@ -368,6 +375,95 @@ const AppContextProvider = ({ children }) => {
   };
 
   /** End create question */
+
+  /** Start set edit question */
+  const setEditQuestion = (id = "xyz") => {
+    console.log(`Editing : ${id}`);
+    dispatch({ type: SET_EDIT_QUESTION, payload: { id } });
+  };
+  /** End set edit question */
+  /* Start Edit question */
+  const editQuestion = async () => {
+    console.log("Editing question");
+    dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
+
+    try {
+      const {
+        questionTitleType: titleType,
+        questionTitleTypeAssetUrl: titleTypeAssetUrl,
+        questionTitle: title,
+        questionWrongAnswers: wrongAnswers,
+        questionCorrectAnswer: correctAnswer,
+        IdOfQuestionQuiz: quizId,
+        idOfQuestion
+      } = state; //{{URL}}api/questions/6330c1acde5b40eba215e937
+      const editedQuestion = {
+        title,
+        titleType,
+        titleTypeAssetUrl,
+        wrongAnswers,
+        quizId,
+        correctAnswer
+      };
+      const { data } = await authFetch.patch(
+        `/questions/${idOfQuestion}`,
+        editedQuestion
+      );
+
+      doToast({
+        message: `question  edited `,
+        type: "success"
+      });
+      dispatch({
+        type: EDIT_QUIZ_SUCCESS
+      });
+      dispatch({ type: CLEAR_FORM });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: TOGGLE_LOADING, payload: { value: false } });
+      doToast({ message: error.response.data.msg, type: "error" });
+    }
+  };
+  /** End edit question  */
+  /** Start delete question */
+  const deleteQuestion = async _id => {
+    console.log("deleting");
+    dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
+    try {
+      //questions/633a087b9efc41c7352e8924
+      await authFetch.delete(`/questions/${_id}`);
+      doToast({ message: "question deleted", type: "success" });
+      dispatch({ type: DELETE_QUESTION_SUCCESS, payload: { id: _id } });
+    } catch (error) {
+      dispatch({ type: TOGGLE_LOADING, payload: { value: false } });
+      console.log(error.response);
+      // logoutUser();
+    }
+  };
+  /* End delete question */
+  /** Start Get Quiz Question */
+  const getQuizQuestion = async () => {
+    dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
+    const { IdOfQuestionQuiz } = state;
+    if (!IdOfQuestionQuiz) {
+      doToast({ message: "Something went wrong", type: "error" });
+      return;
+    }
+    try {
+      const { data } = await authFetch.get(`/questions/${IdOfQuestionQuiz}`);
+      const { quiz, questions } = data;
+
+      dispatch({
+        type: GET_QUESTIONS_SUCCESS,
+        payload: { quiz, questions }
+      });
+    } catch (error) {
+      console.log(error.response);
+      //if error log out and start over
+      // logoutUser();
+    }
+  };
+  /** Start Get Quiz Question */
 
   /* Start logout user*/
   const logoutUser = () => {
@@ -399,8 +495,12 @@ const AppContextProvider = ({ children }) => {
         deleteQuiz,
         handleWrongAnswersChange,
         createQuestion,
+        getQuizQuestion,
         changePage,
         setQuizId,
+        setEditQuestion,
+        editQuestion,
+        deleteQuestion,
         logoutUser
       }}
     >

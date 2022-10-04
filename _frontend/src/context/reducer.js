@@ -13,6 +13,11 @@ import {
   CLEAR_FILTERS,
   CHANGE_WRONG_ANSERS,
   SET_QUIZ_ID,
+  CREATE_QUESTION_SUCCESS,
+  SET_EDIT_QUESTION,
+  EDIT_QUESTION_SUCCESS,
+  DELETE_QUESTION_SUCCESS,
+  GET_QUESTIONS_SUCCESS,
   CHANGE_PAGE
 } from "./actions";
 
@@ -29,13 +34,21 @@ const reducer = (state, { type, payload }) => {
   if (type === CLEAR_FORM) {
     return {
       ...state,
-
+      // clear quiz form
       isEditing: false,
       idIfItIsEditing: "",
       quizTitle: "",
       quizSubject: "",
       quizDescription: "",
-      quizBgUrl: ""
+      quizBgUrl: "",
+      // clear question form
+      isEditingQuestion: false,
+      idOfQuestion: "",
+      questionTitleType: "text",
+      questionTitleTypeAssetUrl: "",
+      questionTitle: "",
+      questionWrongAnswers: [],
+      questionCorrectAnswer: ""
     };
   }
   if (type === CLEAR_FILTERS) {
@@ -128,6 +141,61 @@ const reducer = (state, { type, payload }) => {
     return {
       ...state,
       questionWrongAnswers: temp
+    };
+  }
+  if (type === CREATE_QUESTION_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false
+    };
+  }
+  if (type === SET_EDIT_QUESTION) {
+    const {
+      _id,
+      titleType: questionTitleType,
+      title: questionTitle,
+      wrongAnswers: questionWrongAnswers,
+      correctAnswer: questionCorrectAnswer,
+      titleTypeAssetUrl: questionTitleTypeAssetUrl
+    } = state.quizQuestions.find(question => question._id === payload.id);
+
+    return {
+      ...state,
+      isEditingQuestion: true,
+      idOfQuestion: _id,
+      questionTitleType,
+      questionTitleTypeAssetUrl,
+      questionTitle,
+      questionWrongAnswers,
+      questionCorrectAnswer
+    };
+  }
+
+  if (type === EDIT_QUESTION_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false
+    };
+  }
+  if (type === DELETE_QUESTION_SUCCESS) {
+    let { quizQuestions } = state;
+    quizQuestions = quizQuestions.filter(
+      question => question._id != payload.id
+    );
+    return {
+      ...state,
+      quizQuestions,
+      isLoading: false
+    };
+  }
+  if (type === GET_QUESTIONS_SUCCESS) {
+    const { quiz, questions } = payload;
+
+    return {
+      ...state,
+      isLoading: false,
+      questionQuiz: quiz,
+      quizQuestions: questions
     };
   }
   if (type === LOGOUT_USER) {

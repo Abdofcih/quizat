@@ -35,6 +35,7 @@ export const createQuestion = async (req, res) => {
 export const updateQuestion = async (req, res) => {
   const { id: questionId } = req.params;
   const { title, quizId, correctAnswer } = req.body;
+
   if (!title || !quizId || !correctAnswer) {
     console.log("please provide all question value");
     throw new BadRequestError("please provide all question value");
