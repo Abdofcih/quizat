@@ -20,6 +20,8 @@ import {
   SET_QUIZ_ID,
   CREATE_QUESTION_SUCCESS,
   GET_QUESTIONS_SUCCESS,
+  GET_STATS_SUCCESS,
+  GET_QUIZ_STUDENTS_SUCCESS,
   DELETE_QUESTION_SUCCESS,
   SET_EDIT_QUESTION,
   CHANGE_PAGE
@@ -72,7 +74,11 @@ const initialValues = {
   //quizId will be  idIfItIsEditing
   // state related to quiz  =>>>  students
   quizStudents: [],
-  totalQuizStudents: 0
+  totalQuizStudents: 0,
+  // state related to teacher  =>>>  students
+  totalTeacherStudents: 0,
+  // state related to teacher  =>>>  quizzes
+  totalTeacherQuizzes: 0
 };
 const appContext = React.createContext();
 
@@ -201,6 +207,22 @@ const AppContextProvider = ({ children }) => {
       doToast({ message: error.response.data.msg, type: "error" });
     }
   };
+  /**start get stats  */
+  const getStats = async () => {
+    dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
+    try {
+      const { data } = await authFetch("/quizzes/stats");
+      const { stats, monthlyApplications } = data;
+      dispatch({
+        type: GET_STATS_SUCCESS,
+        payload: { stats, monthlyApplications }
+      });
+    } catch (error) {
+      doToast({ message: error.response.data.msg, type: "error" });
+      logoutUser();
+    }
+  };
+  /**start get stats  */
   /* Start create quiz  */
   const createQuiz = async () => {
     console.log("Creating quiz");
@@ -464,6 +486,30 @@ const AppContextProvider = ({ children }) => {
     }
   };
   /** Start Get Quiz Question */
+  /** Start Get Quiz Students */
+  const getQuizStudents = async () => {
+    dispatch({ type: TOGGLE_LOADING, payload: { value: true } });
+    const { IdOfQuestionQuiz } = state;
+    if (!IdOfQuestionQuiz) {
+      return;
+    }
+    try {
+      const { data } = await authFetch.get(`/grades`, {
+        quizId: IdOfQuestionQuiz
+      });
+      const { quizId, grades, gradesLength } = data;
+
+      dispatch({
+        type: GET_QUIZ_STUDENTS_SUCCESS,
+        payload: { quizId, grades, gradesLength }
+      });
+    } catch (error) {
+      console.log(error.response);
+      //if error log out and start over
+      // logoutUser();
+    }
+  };
+  /** Start Get Quiz Students */
 
   /* Start logout user*/
   const logoutUser = () => {
@@ -487,6 +533,7 @@ const AppContextProvider = ({ children }) => {
         updateUser,
         setUser,
         toggleLoading,
+        getStats,
         createQuiz,
         editQuiz,
         clearFilter,
@@ -496,6 +543,7 @@ const AppContextProvider = ({ children }) => {
         handleWrongAnswersChange,
         createQuestion,
         getQuizQuestion,
+        getQuizStudents,
         changePage,
         setQuizId,
         setEditQuestion,

@@ -7,7 +7,7 @@ const links = [
   {
     id: 1,
     text: "stats",
-    path: "/",
+    path: "/stats",
     exactly: true,
     icon: <IoBarChartSharp />
   },

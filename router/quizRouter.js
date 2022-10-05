@@ -19,6 +19,6 @@ router
   .delete(AuthenticateUser, deleteQuiz) //post to patch -********
   .patch(AuthenticateUser, updateQuiz);
 /* router.delete("/:id", AuthenticateUser, deleteQuiz); */
-router.route("/stats").get(getStats);
+router.route("/stats").get(AuthenticateUser, getStats);
 
 export default router;

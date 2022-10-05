@@ -14,6 +14,8 @@ import Quiz from "./Quiz/Quiz";
 import QuizInfo from "./QuizInfo/QuizInfo";
 import WrongAnswers from "./WrongAnswers/WrongAnswers";
 import Question from "./Question/Question";
+import StatsItem from "./StatsItem/StatsItem";
+import StudentsTable from "./StudentsTable/StudentsTable";
 import PageBtnContainer from "./PageBtnContainer/PageBtnContainer";
 
 export {
@@ -33,5 +35,7 @@ export {
   QuizInfo,
   Loading,
   WrongAnswers,
-  Question
+  Question,
+  StatsItem,
+  StudentsTable
 };

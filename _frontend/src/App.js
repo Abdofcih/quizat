@@ -12,7 +12,7 @@ import {
   GetQuizzes,
   Protected
 } from "./pages";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 function App() {
   return (
@@ -26,7 +26,8 @@ function App() {
             </Protected>
           }
         >
-          <Route index element={<Stats />} />
+          <Route index element={<Navigate to="/stats" />} />
+          <Route path="/stats" element={<Stats />} />
           <Route path="/add-quiz" element={<AddQuiz />} />
           <Route path="/quizzes" element={<GetQuizzes />} />
           <Route path="/add-question" element={<AddQuestion />} />

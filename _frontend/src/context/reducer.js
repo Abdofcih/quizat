@@ -5,6 +5,7 @@ import {
   HANDLE_FORM_CHANGE,
   SETUP_USER_SUCCESS,
   LOGOUT_USER,
+  GET_STATS_SUCCESS,
   UPDATE_USER_SUCCESS,
   CREATE_QUIZ_SUCCESS,
   EDIT_QUIZ_SUCCESS,
@@ -14,6 +15,7 @@ import {
   CHANGE_WRONG_ANSERS,
   SET_QUIZ_ID,
   CREATE_QUESTION_SUCCESS,
+  GET_QUIZ_STUDENTS_SUCCESS,
   SET_EDIT_QUESTION,
   EDIT_QUESTION_SUCCESS,
   DELETE_QUESTION_SUCCESS,
@@ -196,6 +198,26 @@ const reducer = (state, { type, payload }) => {
       isLoading: false,
       questionQuiz: quiz,
       quizQuestions: questions
+    };
+  }
+  if (type === GET_QUIZ_STUDENTS_SUCCESS) {
+    const { quizId, grades, gradesLength } = payload;
+
+    return {
+      ...state,
+      isLoading: false,
+      quizStudents: grades,
+      totalQuizStudents: gradesLength
+    };
+  }
+  if (type === GET_STATS_SUCCESS) {
+    const { stats, monthlyApplications } = payload;
+
+    return {
+      ...state,
+      isLoading: false,
+      stats,
+      monthlyApplications
     };
   }
   if (type === LOGOUT_USER) {

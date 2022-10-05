@@ -4,19 +4,13 @@ import { FormRow, SelectFormRow } from "../index";
 import { useAppContext } from "../../context/AppContext";
 const SearchContainer = () => {
   const {
-    isEditing,
-    idIfItIsEditing,
-    quizTitle,
-    quizSubject,
     quizSubjectTypes,
-    quizDescription,
-    quizBgUrl,
-    doToast,
+
     isLoading,
     handleFormChange,
-    clearForm,
-    createQuiz,
-    editQuiz,
+
+    quizSubjectFilter,
+    searchFilter,
     sortOptions,
     sort,
     clearFilter
@@ -39,8 +33,8 @@ const SearchContainer = () => {
           {/* title */}
           <FormRow
             type="text"
-            name="quizTitle"
-            value={quizTitle}
+            name="searchFilter"
+            value={searchFilter}
             handleChange={handleSearch}
           />
 
@@ -48,9 +42,9 @@ const SearchContainer = () => {
           <SelectFormRow
             inputId="subject"
             lableText="quiz subject"
-            name="quizSubject"
-            value={quizSubject}
-            itemOptions={quizSubjectTypes}
+            name="quizSubjectFilter"
+            value={quizSubjectFilter}
+            itemOptions={["all", ...quizSubjectTypes]}
             handleChange={handleSearch}
           />
           {/* sort quiz */}

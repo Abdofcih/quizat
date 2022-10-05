@@ -18,8 +18,9 @@
   padding: 10px 5px;
   margin: 10px 0;
 }
-.getQuestionPage .divRow.questionNum {
+.getQuestionPage .divRow.addBtnContainer {
   margin-bottom: 25px;
+  background-color: transparent;
 }
 @media (max-width: 768px) {
   .getQuestionPage .divRow {

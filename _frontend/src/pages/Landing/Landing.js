@@ -12,10 +12,11 @@ const Landing = () => {
       <div className="container page">
         {/* Start Landing info */}
         <div className="info">
-          <h1>
-            Quiz <span>Taking</span> app
-          </h1>
-          <p>Test your english level by taking quizes .</p>
+          <h3>There's a better way to ask</h3>
+          <h5>
+            You don't want to make a boring form. And your audience won't answer
+            one. Create a typeform instead—and make everyone happy..
+          </h5>
           {/* button to Link */}
           <Link to="/register" className="btn main-btn btn-hero">
             Get started - it's free

@@ -30,7 +30,10 @@ export const getAllQuizzes = async (req, res) => {
   if (search) {
     // $regex:search find string that contain search
     //'i' for case insensitive match
-    queryObject.position = { $regex: search, $options: "i" };
+    queryObject.title = { $regex: search, $options: "i" };
+  }
+  if (subject && subject !== "all") {
+    queryObject.subject = subject;
   }
 
   // quizzes get a promise need await or then, catch
@@ -50,7 +53,7 @@ export const getAllQuizzes = async (req, res) => {
   }
   //req.query.pageNum is a string
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 8;
+  const limit = Number(req.query.limit) || 6;
   const skip = (page - 1) * limit;
 
   result.skip(skip).limit(limit);
@@ -109,7 +112,8 @@ export const getStats = async (req, res) => {
     acc[title] = count;
     return acc;
   }, {});
-  /* alt code but return an array
+
+  /* alternative code but return an array
   stats = stats.map(oneStat => {
     const { _id: title, count } = oneStat;
     return { [title]: count };
