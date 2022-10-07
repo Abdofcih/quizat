@@ -312,6 +312,9 @@ ul {
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 1rem;
   }
+  .grid-2-xlg {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 .quizStats .statsItem {
   padding: 2rem;

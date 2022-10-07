@@ -6,7 +6,8 @@ import {
   Loading,
   Question,
   StatsItem,
-  StudentsTable
+  StudentsTable,
+  CopyToClipboard
 } from "../../../components";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -29,19 +30,19 @@ const GetQuestions = () => {
     getQuizStudents();
   }, []);
   const navigate = useNavigate();
-  const { title, numberOfQuestions } = questionQuiz;
+  const { title, numberOfQuestions, shortUrl } = questionQuiz;
   const [view, setView] = useState("questions");
   const defaultQuizStats = [
     {
       title: "Questions",
       count: numberOfQuestions || 0,
-      icon: <FaUserGraduate />,
+      icon: <FaQuestionCircle />,
       color: "var(--primary-500)"
     },
     {
       title: "Students",
       count: totalQuizStudents || 0,
-      icon: <FaQuestionCircle />,
+      icon: <FaUserGraduate />,
       color: "#e9b949"
     }
   ];
@@ -58,7 +59,8 @@ const GetQuestions = () => {
   return (
     <section className="getQuestionPage">
       <h2>Quiz : {title}</h2>
-      <section className="quizStats">
+      <CopyToClipboard value={shortUrl} />
+      <section className="quizStats grid-2-xlg">
         {defaultQuizStats.map((item, index) => {
           return <StatsItem key={index} {...item} />;
         })}

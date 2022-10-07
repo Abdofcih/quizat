@@ -42,6 +42,7 @@ const initialValues = {
   quizSubjectTypes: ["english", "programing", "math", "marketing"],
   quizDescription: "",
   quizBgUrl: "",
+  shortUrl: "",
   //check form mode whether is editing or adding
   isEditing: false,
   idIfItIsEditing: "",
@@ -183,7 +184,7 @@ const AppContextProvider = ({ children }) => {
       console.log("login Error");
       console.log(error);
       dispatch({ type: TOGGLE_LOADING, payload: { value: false } });
-      doToast({ message: error.response.data.msg, type: "error" });
+      doToast({ message: "somthing went wrong", type: "error" });
     }
   };
   const updateUser = async currentUser => {
@@ -384,6 +385,7 @@ const AppContextProvider = ({ children }) => {
       dispatch({
         type: CREATE_QUESTION_SUCCESS
       });
+      dispatch({ type: CLEAR_FORM });
     } catch (error) {
       console.log(error);
       dispatch({ type: TOGGLE_LOADING, payload: { value: false } });

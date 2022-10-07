@@ -14,8 +14,8 @@ const Landing = () => {
         <div className="info">
           <h3>There's a better way to ask</h3>
           <h5>
-            You don't want to make a boring form. And your audience won't answer
-            one. Create a typeform instead—and make everyone happy..
+            You don't want to make a boring quiz. And your audience won't answer
+            one. Create a quizat quiz instead—and make everyone happy..
           </h5>
           {/* button to Link */}
           <Link to="/register" className="btn main-btn btn-hero">

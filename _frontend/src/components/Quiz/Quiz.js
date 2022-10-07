@@ -3,7 +3,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../context/AppContext";
 import "./Quiz.css";
-import { QuizInfo } from "../index";
+import { QuizInfo, CopyToClipboard } from "../index";
 import formatDate from "../../utils/formatDate";
 
 const Quiz = ({
@@ -13,6 +13,7 @@ const Quiz = ({
   description,
   numberOfQuestions,
   bgUrl,
+  shortUrl,
   createdAt
 }) => {
   const { setEditQuiz, deleteQuiz, setQuizId } = useAppContext();
@@ -26,6 +27,7 @@ const Quiz = ({
 
         <h5>{title}</h5>
         <p>{description}</p>
+        <CopyToClipboard value={shortUrl} />
       </header>
       <div className="content">
         {/* Content here */}

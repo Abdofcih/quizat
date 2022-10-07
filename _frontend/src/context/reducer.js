@@ -40,7 +40,7 @@ const reducer = (state, { type, payload }) => {
       isEditing: false,
       idIfItIsEditing: "",
       quizTitle: "",
-      quizSubject: "",
+      quizSubject: "english",
       quizDescription: "",
       quizBgUrl: "",
       // clear question form
