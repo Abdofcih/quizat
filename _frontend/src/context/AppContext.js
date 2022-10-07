@@ -85,7 +85,7 @@ const appContext = React.createContext();
 
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialValues);
-  const baseUrl = "http://localhost:5000/api";
+  const baseUrl = "https://quizatime.herokuapp.com/api";
 
   /**** Start setting up axios        */
   //axios.defaults.headers.common["Authorization"] = `Bearer ${state.token}`;
