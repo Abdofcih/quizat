@@ -7,9 +7,10 @@ import {
 } from "../errors/index.js";
 import mongoose from "mongoose";
 import checkPermissions from "../utils/checkPermissions.js";
+import ShortenURL from "../utils/ShortenURL.js";
 
 export const createQuiz = async (req, res) => {
-  const { title, description, bgUrl } = req.body;
+  const { title } = req.body;
 
   if (!title) {
     console.log("please provide all quiz value");
@@ -18,9 +19,13 @@ export const createQuiz = async (req, res) => {
   }
   // req.body is ready as a quiz instance
   req.body.createdBy = req.user.id;
-  const quiz = await Quiz.create(req.body);
+  const id = new mongoose.Types.ObjectId();
+  const { link } = await ShortenURL(id);
+  const quiz = await Quiz.create({ _id: id, shortUrl: link, ...req.body });
+
   res.status(StatusCodes.CREATED).json(quiz);
 };
+
 export const getAllQuizzes = async (req, res) => {
   const { search, sort, subject } = req.query;
   const queryObject = {

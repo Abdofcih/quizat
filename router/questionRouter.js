@@ -16,7 +16,9 @@ router
   .delete(AuthenticateUser, deleteQuestion)
   .patch(AuthenticateUser, updateQuestion);
 
-publicRouter.route("/:id").get(AuthenticateUser, getQuizQuestions);
+// it is public because students are not signed up users
+//
+publicRouter.route("/:id").get(getQuizQuestions);
 
 export default router;
 export { publicRouter };
