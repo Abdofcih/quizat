@@ -4,7 +4,7 @@ import { BadRequestError, NotFoundError } from "../errors/index.js";
 import { StatusCodes } from "http-status-codes";
 
 export const createGrade = async (req, res) => {
-  const { userEmail, quizId, grade, message } = req.body;
+  const { userEmail, quizId, grade, message,userName } = req.body;
 
   if (!userEmail || !quizId || !grade) {
     console.log("please provide all grade value");

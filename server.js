@@ -48,7 +48,7 @@ app.use(errorHandlerMiddleware);
 // try to connect to database and run server
 const startServer = async () => {
   try {
-    await connectDB(process.env.MONGO_URL);
+    await connectDB(process.env.MONGO_URL_PREV);
     app.listen(port, () => {
       console.log("server up and running " + port);
     });

@@ -83,13 +83,12 @@ export const deleteQuiz = async (req, res) => {
 
   res.json({ msg: "Success! delete quiz ", id: quizId, title: quiz.title });
 };
+
 export const updateQuiz = async (req, res) => {
   const { id: quizId } = req.params;
   const { title, description, bgUrl } = req.body;
 
-  if (!title) {
-    throw new BadRequestError("please provide all quiz value");
-  }
+ 
   const quiz = await Quiz.findOne({ _id: quizId });
   if (!quiz) {
     throw new NotFoundError(`No quiz wiht id : ${quizId}`);
@@ -103,6 +102,24 @@ export const updateQuiz = async (req, res) => {
   });
   res.status(StatusCodes.OK).json(updatedQuiz);
 };
+
+export const getQuiz = async (req, res) => {
+  const { id: quizId } = req.params;
+
+
+  const quiz = await Quiz.findOne({ _id: quizId });
+  if (!quiz) {
+    throw new NotFoundError(`No quiz with id : ${quizId}`);
+  }
+
+  //check permision
+  checkPermissions({ requestUser: req.user, resourceUserId: quiz.createdBy });
+
+
+  res.status(StatusCodes.OK).json(quiz)
+};
+
+
 
 export const getStats = async (req, res) => {
   // req.user.id is a string so mongoose.Types.ObjectId() is here

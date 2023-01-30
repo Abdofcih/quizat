@@ -6,6 +6,6 @@ import { register, login, updateUser } from "../controller/authController.js";
 router.route("/register").post(register);
 router.route("/login").post(login);
 // need auth AuthenticateUser middleware
-router.route("/update").post(AuthenticateUser, updateUser);
+router.route("/update").patch(AuthenticateUser, updateUser);
 
 export default router;

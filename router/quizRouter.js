@@ -2,6 +2,7 @@ import express from "express";
 import AuthenticateUser from "../middleware/auth.js";
 import {
   createQuiz,
+  getQuiz,
   getAllQuizzes,
   deleteQuiz,
   updateQuiz,
@@ -14,11 +15,16 @@ router
   .route("/")
   .post(AuthenticateUser, createQuiz)
   .get(AuthenticateUser, getAllQuizzes);
+ 
+// get /quizzes/stats must be before get quizzes/:id
+router.route("/stats").get(AuthenticateUser, getStats);
+
+
 router
   .route("/:id")
-  .delete(AuthenticateUser, deleteQuiz) //post to patch -********
-  .patch(AuthenticateUser, updateQuiz);
+  .get(AuthenticateUser,   getQuiz) 
+  .patch(AuthenticateUser, updateQuiz)
+  .delete(AuthenticateUser, deleteQuiz);
 /* router.delete("/:id", AuthenticateUser, deleteQuiz); */
-router.route("/stats").get(AuthenticateUser, getStats);
 
 export default router;
